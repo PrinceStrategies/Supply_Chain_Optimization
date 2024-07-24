@@ -1,0 +1,63 @@
+# Just-In-Time (JIT) Inventory Management
+
+   # Demonstrates how to calculate the JIT reorder point to reduce holding costs.
+
+import pandas as pd
+
+# Sample data
+products = pd.DataFrame({
+    'product_id': [1, 2, 3],
+    'demand_per_day': [10, 15, 5],
+    'lead_time_days': [2, 3, 1]
+})
+
+# Calculate the JIT reorder point
+products['reorder_point'] = products['demand_per_day'] * products['lead_time_days']
+
+print("JIT Inventory Reorder Points:")
+print(products[['product_id', 'reorder_point']])
+
+
+# Safety Stock Calculation
+
+  # Demonstrates how to calculate safety stock levels to manage demand variability.
+
+import numpy as np
+
+# Sample data with demand variability and lead time variability
+products['std_dev_demand'] = [2, 3, 1]
+products['std_dev_lead_time'] = [0.5, 0.7, 0.2]
+
+# Service level (e.g., 95% service level corresponds to a Z value of 1.65)
+z_value = 1.65
+
+# Calculate safety stock
+products['safety_stock'] = z_value * np.sqrt(
+    (products['lead_time_days'] * products['std_dev_demand']**2) +
+    (products['demand_per_day']**2 * products['std_dev_lead_time']**2)
+)
+
+print("Safety Stock Levels:")
+print(products[['product_id', 'safety_stock']])
+
+
+# Cycle Counting
+
+  # Demonstrates how to select a percentage of products for daily cycle counts to maintain inventory accuracy.
+
+import random
+
+# Define cycle count frequency (e.g., 10% of items daily)
+cycle_count_frequency = 0.1
+
+# Function to select products for cycle counting
+def select_cycle_count_products(products, frequency):
+    total_products = len(products)
+    count_per_cycle = int(total_products * frequency)
+    return products.sample(count_per_cycle)
+
+# Select products for today's cycle count
+today_cycle_count_products = select_cycle_count_products(products, cycle_count_frequency)
+
+print("Today's Cycle Count Products:")
+print(today_cycle_count_products)
