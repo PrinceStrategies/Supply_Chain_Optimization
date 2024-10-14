@@ -1,3 +1,3 @@
-# Optimize warehouse operations
+# Optimize supply chain operations
 
-Techniques for integrating advanced technologies to enhance warehouse operations.
+Techniques and projects for integrating advanced technologies to enhance Supply Chain operations.
