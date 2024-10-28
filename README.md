@@ -1,4 +1,4 @@
-Welcome to my comprehensive repository of data analytics and data science projects focused on supply chain opitmization. This collection showcases a diverse range of real-world applications, coding techniques, and innovative solutions to complex problems.
+Welcome to my comprehensive repository of data analytics and data science projects on supply chain optimization within multiple domains. This collection showcases a diverse range of real-world applications, coding techniques, and innovative solutions to complex problems.
 
 **# What You'll Find Here'**
 
