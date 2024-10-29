@@ -61,3 +61,334 @@ today_cycle_count_products = select_cycle_count_products(products, cycle_count_f
 
 print("Today's Cycle Count Products:")
 print(today_cycle_count_products)
+
+# Create a dictionary structure to hold KPI information
+import pandas as pd
+import numpy as np
+from datetime import datetime, timedelta
+
+kpi_data = {
+    'Business Operations': {
+        'Order Fulfillment Rate': {
+            'definition': 'Percentage of orders successfully fulfilled on time',
+            'domain_specific': False
+        },
+        'Inventory Turnover Ratio': {
+            'definition': 'Number of times inventory is sold and replaced over a period',
+            'domain_specific': False
+        },
+        'Perfect Order Rate': {
+            'definition': 'Percentage of orders delivered without any issues',
+            'domain_specific': True
+        },
+        'Cash-to-Cash Cycle Time': {
+            'definition': 'Time between paying for materials and receiving payment from customers',
+            'domain_specific': True
+        },
+        'Gross Margin Return on Investment': {
+            'definition': 'Measure of inventory profitability',
+            'domain_specific': True
+        },
+        'Days Sales Outstanding': {
+            'definition': 'Average time to collect payment after a sale',
+            'domain_specific': True
+        },
+        'Operating Margin': {
+            'definition': 'Operating income as a percentage of revenue',
+            'domain_specific': True
+        },
+        'Return on Assets': {
+            'definition': 'Net income relative to total assets',
+            'domain_specific': True
+        },
+        'Supply Chain Cost': {
+            'definition': 'Total cost of supply chain operations',
+            'domain_specific': False
+        },
+        'Forecast Accuracy': {
+            'definition': 'Accuracy of demand predictions',
+            'domain_specific': False
+        }
+    },
+    'People Operations': {
+        'Employee Productivity Rate': {
+            'definition': 'Output per employee in supply chain operations',
+            'domain_specific': True
+        },
+        'Training Completion Rate': {
+            'definition': 'Percentage of employees completing required training',
+            'domain_specific': True
+        },
+        'Safety Incident Rate': {
+            'definition': 'Number of safety incidents per worker-hour',
+            'domain_specific': True
+        },
+        'Employee Turnover Rate': {
+            'definition': 'Rate at which employees leave the organization',
+            'domain_specific': True
+        },
+        'Overtime Hours': {
+            'definition': 'Amount of overtime worked by employees',
+            'domain_specific': True
+        },
+        'Employee Satisfaction Score': {
+            'definition': 'Measure of employee satisfaction',
+            'domain_specific': True
+        },
+        'Time to Fill Positions': {
+            'definition': 'Average time to fill vacant positions',
+            'domain_specific': True
+        },
+        'Training Cost per Employee': {
+            'definition': 'Average cost spent on training per employee',
+            'domain_specific': True
+        },
+        'Absenteeism Rate': {
+            'definition': 'Percentage of unplanned absences',
+            'domain_specific': True
+        },
+        'Labor Cost per Unit': {
+            'definition': 'Labor cost required to produce one unit',
+            'domain_specific': True
+        }
+    },
+    'Supply Chain': {
+        'On-Time Delivery Rate': {
+            'definition': 'Percentage of deliveries made on time',
+            'domain_specific': False
+        },
+        'Inventory Accuracy': {
+            'definition': 'Accuracy of inventory records vs physical count',
+            'domain_specific': False
+        },
+        'Supplier Lead Time': {
+            'definition': 'Time between order placement and delivery',
+            'domain_specific': True
+        },
+        'Warehouse Utilization': {
+            'definition': 'Percentage of warehouse space being utilized',
+            'domain_specific': True
+        },
+        'Transportation Cost per Unit': {
+            'definition': 'Cost to transport one unit of product',
+            'domain_specific': True
+        },
+        'Order Cycle Time': {
+            'definition': 'Time from order placement to delivery',
+            'domain_specific': True
+        },
+        'Supplier Defect Rate': {
+            'definition': 'Percentage of defective items from suppliers',
+            'domain_specific': True
+        },
+        'Inventory Days of Supply': {
+            'definition': 'Number of days inventory will last at current usage',
+            'domain_specific': True
+        },
+        'Fill Rate': {
+            'definition': 'Percentage of customer demand met through immediate stock availability',
+            'domain_specific': True
+        },
+        'Supply Chain Visibility Score': {
+            'definition': 'Measure of supply chain transparency and traceability',
+            'domain_specific': True
+        }
+    }
+}
+
+# Convert to DataFrame for better visualization
+kpi_df = pd.DataFrame([(domain, kpi, data['definition'], data['domain_specific']) 
+                       for domain, kpis in kpi_data.items() 
+                       for kpi, data in kpis.items()],
+                     columns=['Domain', 'KPI', 'Definition', 'Domain Specific'])
+
+print("Supply Chain KPIs Overview:")
+print(kpi_df)
+
+# Example calculations for common Business Operations KPIs
+import numpy as np
+from datetime import datetime, timedelta
+
+# Sample data
+class SupplyChainKPICalculator:
+    def __init__(self):
+        # Sample data for demonstration
+        self.orders = {
+            'total_orders': 1000,
+            'fulfilled_orders': 950,
+            'on_time_orders': 920,
+            'perfect_orders': 900
+        }
+        
+        self.inventory = {
+            'beginning_inventory': 100000,
+            'ending_inventory': 80000,
+            'cogs': 500000
+        }
+        
+        self.financial = {
+            'accounts_receivable': 200000,
+            'annual_sales': 1000000,
+            'operating_income': 150000,
+            'revenue': 1000000,
+            'total_assets': 800000
+        }
+        
+    def calculate_order_fulfillment_rate(self):
+        return (self.orders['fulfilled_orders'] / self.orders['total_orders']) * 100
+    
+    def calculate_inventory_turnover(self):
+        avg_inventory = (self.inventory['beginning_inventory'] + self.inventory['ending_inventory']) / 2
+        return self.inventory['cogs'] / avg_inventory
+    
+    def calculate_perfect_order_rate(self):
+        return (self.orders['perfect_orders'] / self.orders['total_orders']) * 100
+    
+    def calculate_operating_margin(self):
+        return (self.financial['operating_income'] / self.financial['revenue']) * 100
+    
+    def calculate_return_on_assets(self):
+        return (self.financial['operating_income'] / self.financial['total_assets']) * 100
+
+# Create calculator instance and demonstrate calculations
+calculator = SupplyChainKPICalculator()
+
+print("KPI Calculations Example:")
+print("1. Order Fulfillment Rate: {:.2f}%".format(calculator.calculate_order_fulfillment_rate()))
+print("2. Inventory Turnover Ratio: {:.2f}".format(calculator.calculate_inventory_turnover()))
+print("3. Perfect Order Rate: {:.2f}%".format(calculator.calculate_perfect_order_rate()))
+print("4. Operating Margin: {:.2f}%".format(calculator.calculate_operating_margin()))
+print("5. Return on Assets: {:.2f}%".format(calculator.calculate_return_on_assets()))
+
+# People Operations KPIs Example
+class PeopleOperationsKPICalculator:
+    def __init__(self):
+        self.employee_data = {
+            'total_employees': 100,
+            'productive_hours': 1600,
+            'total_hours': 2000,
+            'completed_training': 90,
+            'safety_incidents': 2,
+            'total_work_hours': 160000,
+            'employees_left': 5,
+            'overtime_hours': 200,
+            'satisfaction_scores': [4, 5, 3, 4, 5],  # Scale of 1-5
+            'training_costs': 50000
+        }
+    
+    def calculate_productivity_rate(self):
+        return (self.employee_data['productive_hours'] / self.employee_data['total_hours']) * 100
+    
+    def calculate_training_completion_rate(self):
+        return (self.employee_data['completed_training'] / self.employee_data['total_employees']) * 100
+    
+    def calculate_safety_incident_rate(self):
+        return (self.employee_data['safety_incidents'] / 
+                (self.employee_data['total_work_hours'] / 1000))  # Per 1000 hours
+    
+    def calculate_turnover_rate(self):
+        return (self.employee_data['employees_left'] / self.employee_data['total_employees']) * 100
+    
+    def calculate_overtime_percentage(self):
+        return (self.employee_data['overtime_hours'] / self.employee_data['total_hours']) * 100
+    
+    def calculate_avg_satisfaction_score(self):
+        return np.mean(self.employee_data['satisfaction_scores'])
+    
+    def calculate_training_cost_per_employee(self):
+        return self.employee_data['training_costs'] / self.employee_data['total_employees']
+
+# Create calculator instance and demonstrate calculations
+people_calculator = PeopleOperationsKPICalculator()
+
+print("People Operations KPI Calculations Example:")
+print("1. Employee Productivity Rate: {:.2f}%".format(people_calculator.calculate_productivity_rate()))
+print("2. Training Completion Rate: {:.2f}%".format(people_calculator.calculate_training_completion_rate()))
+print("3. Safety Incident Rate: {:.2f} per 1000 hours".format(people_calculator.calculate_safety_incident_rate()))
+print("4. Employee Turnover Rate: {:.2f}%".format(people_calculator.calculate_turnover_rate()))
+print("5. Overtime Percentage: {:.2f}%".format(people_calculator.calculate_overtime_percentage()))
+print("6. Average Satisfaction Score: {:.2f}".format(people_calculator.calculate_avg_satisfaction_score()))
+print("7. Training Cost per Employee: ${:.2f}".format(people_calculator.calculate_training_cost_per_employee()))
+
+# Supply Chain Specific KPIs Example
+class SupplyChainMetricsCalculator:
+    def __init__(self):
+        self.supply_chain_data = {
+            'deliveries': {
+                'total': 1000,
+                'on_time': 950
+            },
+            'inventory': {
+                'system_count': 10000,
+                'physical_count': 9900
+            },
+            'supplier_orders': {
+                'total_lead_time_days': 15000,  # Sum of all lead times
+                'total_orders': 500
+            },
+            'warehouse': {
+                'used_space': 8500,
+                'total_space': 10000
+            },
+            'transportation': {
+                'total_cost': 100000,
+                'units_shipped': 50000
+            },
+            'supplier_quality': {
+                'defective_items': 150,
+                'total_items': 10000
+            },
+            'inventory_metrics': {
+                'current_inventory': 5000,
+                'daily_usage': 100
+            },
+            'customer_orders': {
+                'fulfilled_from_stock': 950,
+                'total_orders': 1000
+            }
+        }
+    
+    def calculate_otd_rate(self):
+        return (self.supply_chain_data['deliveries']['on_time'] / 
+                self.supply_chain_data['deliveries']['total']) * 100
+    
+    def calculate_inventory_accuracy(self):
+        return (self.supply_chain_data['inventory']['physical_count'] / 
+                self.supply_chain_data['inventory']['system_count']) * 100
+    
+    def calculate_avg_supplier_lead_time(self):
+        return (self.supply_chain_data['supplier_orders']['total_lead_time_days'] / 
+                self.supply_chain_data['supplier_orders']['total_orders'])
+    
+    def calculate_warehouse_utilization(self):
+        return (self.supply_chain_data['warehouse']['used_space'] / 
+                self.supply_chain_data['warehouse']['total_space']) * 100
+    
+    def calculate_transportation_cost_per_unit(self):
+        return (self.supply_chain_data['transportation']['total_cost'] / 
+                self.supply_chain_data['transportation']['units_shipped'])
+    
+    def calculate_supplier_defect_rate(self):
+        return (self.supply_chain_data['supplier_quality']['defective_items'] / 
+                self.supply_chain_data['supplier_quality']['total_items']) * 100
+    
+    def calculate_inventory_days_of_supply(self):
+        return (self.supply_chain_data['inventory_metrics']['current_inventory'] / 
+                self.supply_chain_data['inventory_metrics']['daily_usage'])
+    
+    def calculate_fill_rate(self):
+        return (self.supply_chain_data['customer_orders']['fulfilled_from_stock'] / 
+                self.supply_chain_data['customer_orders']['total_orders']) * 100
+
+# Create calculator instance and demonstrate calculations
+sc_calculator = SupplyChainMetricsCalculator()
+
+print("Supply Chain Specific KPI Calculations Example:")
+print("1. On-Time Delivery Rate: {:.2f}%".format(sc_calculator.calculate_otd_rate()))
+print("2. Inventory Accuracy: {:.2f}%".format(sc_calculator.calculate_inventory_accuracy()))
+print("3. Average Supplier Lead Time: {:.2f} days".format(sc_calculator.calculate_avg_supplier_lead_time()))
+print("4. Warehouse Utilization: {:.2f}%".format(sc_calculator.calculate_warehouse_utilization()))
+print("5. Transportation Cost per Unit: ${:.2f}".format(sc_calculator.calculate_transportation_cost_per_unit()))
+print("6. Supplier Defect Rate: {:.2f}%".format(sc_calculator.calculate_supplier_defect_rate()))
+print("7. Inventory Days of Supply: {:.2f} days".format(sc_calculator.calculate_inventory_days_of_supply()))
+print("8. Fill Rate: {:.2f}%".format(sc_calculator.calculate_fill_rate()))
